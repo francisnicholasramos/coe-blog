@@ -1,11 +1,24 @@
-import './App.css'
+import Posts from './components/posts/Posts'
+import RouteSwitch from './routes/RouteSwitch'
+import { Header } from './components/Header'
 
-function App() {
+const App = () => {
     return (
-        <div className="bg-blue-500 text-white p-4 rounded-2xl">
-            <h1 className="text-2xl font-bold">Tailwind v4 is working!</h1>
+        <div>
+            <RouteSwitch 
+                Header={<Header />}
+                pages={[
+                    {
+                        element: (
+                            <Posts />
+                        ),
+                        path: "/"
+                    }
+                ]}
+            />
         </div>
     )
 }
 
 export default App
+

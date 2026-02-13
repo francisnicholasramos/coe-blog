@@ -1,3 +1,10 @@
+# secrets
+.env*
+
+# personal notes
+notes.md
+AGENTS.md
+
 # Logs
 logs
 *.log
