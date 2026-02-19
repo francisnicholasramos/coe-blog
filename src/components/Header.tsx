@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router';
 
 export function Header() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -9,9 +10,9 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center">
-            <a href="/" className="text-2xl font-bold text-gray-900 tracking-tight">
+            <Link to="/" className="text-2xl font-bold text-gray-900 tracking-tight">
               COE
-            </a>
+            </Link>
           </div>
 
           {/* Right side - Navigation */}
@@ -66,17 +67,21 @@ export function Header() {
                   d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
                 />
               </svg>
-              <span className="text-sm font-medium">Write</span>
+              <Link to="" className="text-sm font-medium">Write</Link>
             </button>
 
             {/* Sign In */}
             <button className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors">
-              Sign In
+                <Link to="">
+                    Sign In
+                </Link>
             </button>
 
             {/* Sign Up */}
             <button className="px-4 py-2 text-sm font-medium text-white bg-gray-900 rounded-full hover:bg-gray-800 transition-colors">
-              Sign Up
+                <Link to="">
+                    Sign Up
+                </Link>
             </button>
           </div>
         </div>
