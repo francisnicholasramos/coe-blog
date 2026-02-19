@@ -2,7 +2,7 @@ import type { Post } from "../../../types";
 import PostCard from "./PostCard";
 
 interface PostListProps {
-  posts: Post[]; // An array of Post objects
+  posts: Post[]; 
 }
 
 const PostList = ({ posts }: PostListProps) => {
