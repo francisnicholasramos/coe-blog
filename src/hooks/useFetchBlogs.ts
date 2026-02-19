@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import type { Post } from '../types';
+import type { Post, PostCardProps } from '../types';
 
 interface PublicBlogsResponse {
   publicBlogs: Post[];
@@ -9,6 +9,12 @@ interface UseFetchBlogsReturn {
     blogs: Post[];         
     loading: boolean;      
     error: string | null;  
+}
+
+interface UseFetchBlogByIdReturn {
+    post: Post | null;
+    loading: boolean;
+    error: string | null;
 }
 
 async function getPublicBlogs(): Promise<Post[]> {
@@ -23,7 +29,6 @@ async function getPublicBlogs(): Promise<Post[]> {
     const data: PublicBlogsResponse = await response.json();
     return data.publicBlogs;
 }
-
 export function useFetchBlogs(): UseFetchBlogsReturn {
     const [blogs, setBlogs] = useState<Post[]>([]);          
     const [loading, setLoading] = useState(true);            
@@ -47,4 +52,37 @@ export function useFetchBlogs(): UseFetchBlogsReturn {
     }, []);
 
     return { blogs, loading, error };
+}
+
+export function useFetchBlogById(username: string, postId: string): UseFetchBlogByIdReturn {
+    const [post, setPost] = useState<Post | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    useEffect(() => {
+        async function fetchBlog() {
+            try {
+                setLoading(true);
+                setError(null);
+                
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/${username}/${postId}`, {
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                console.log("res", response)
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data: PostCardProps = await response.json();
+                setPost(data.post);
+            } catch (err) {
+                setError(err instanceof Error ? err.message : 'Failed to fetch post');
+            } finally {
+                setLoading(false);
+            }
+        }
+        if (postId) {
+            fetchBlog();
+        }
+    }, [postId]);
+    return { post, loading, error };
 }
