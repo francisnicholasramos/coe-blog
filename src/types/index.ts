@@ -1,3 +1,4 @@
+// Entities' Schema
 export interface User {
     id: string;
     username: string;
@@ -11,7 +12,7 @@ export interface Post {
   published: boolean;   
   createdAt: string;    
   userId: string;       
-  user?: User;          
+  user: User;          
   comments?: Comment[]; 
 }
 
