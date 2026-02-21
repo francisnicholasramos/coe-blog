@@ -1,4 +1,5 @@
 import { useParams } from "react-router";
+import { useState } from "react";
 import { useFetchBlogById } from "../../../hooks/useFetchBlogs";
 import { helpers } from "../../../utils/helpers";
 import TextField from '@mui/material/TextField';
@@ -7,7 +8,34 @@ import { IoSendSharp } from "react-icons/io5";
 
 const PostDetail = () => {
     const { username, postId } = useParams<{ username: string; postId: string }>();
-    const { post, loading, error } = useFetchBlogById(username || '', postId || '');
+    const { post, loading, error, refetch } = useFetchBlogById(username || '', postId || '');
+    const [commentText, setCommentText] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const handleSubmitComment = async () => {
+        if (!commentText.trim() || !postId || isSubmitting) return;
+
+        setIsSubmitting(true);
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/comments?id=${postId}`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ content: commentText.trim() })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to post comment');
+            }
+
+            setCommentText("");
+            refetch();
+        } catch (err) {
+            console.error('Error posting comment:', err);
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
+
     if (loading) {
         return (
             <div className="max-w-4xl mx-auto px-4 py-12">
@@ -27,14 +55,14 @@ const PostDetail = () => {
         return (
             <div className="max-w-4xl mx-auto px-4 py-12">
                 <div className="text-center">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-2">Error loading post</h2>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-2">Something went wrong.</h2>
                     <p className="text-gray-600">{error || 'Post not found'}</p>
                 </div>
             </div>
         );
     }
     return (
-        <article className="max-w-4xl mx-auto py-12 ">
+        <article className="max-w-4xl mx-auto py-12 px-3">
             {/* title */}
             <header>
                 <h1 className="text-4xl mb-7 font-bold">
@@ -87,12 +115,26 @@ const PostDetail = () => {
                     fullWidth
                     multiline
                     rows={1}
-                    sx={{ mb: 3 }}
+                    value={commentText}
+                    onChange={(e) => setCommentText(e.target.value)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault();
+                            handleSubmitComment();
+                        }
+                    }}
+                    disabled={isSubmitting}
+                    sx={{
+                      mb: 3,
+                      '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'rgba(0, 0, 0, 0.23)', 
+                      },
+                    }}
                     placeholder="Write a comment..."
                     slotProps={{
                         input: {
                             endAdornment: (
-                                <InputAdornment position="end">
+                                <InputAdornment position="end" sx={{ cursor: 'pointer' }} onClick={handleSubmitComment}>
                                     <IoSendSharp />
                                 </InputAdornment>
                             ),

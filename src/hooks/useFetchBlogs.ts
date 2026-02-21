@@ -15,6 +15,7 @@ interface UseFetchBlogByIdReturn {
     post: Post | null;
     loading: boolean;
     error: string | null;
+    refetch: () => void;
 }
 
 async function getPublicBlogs(): Promise<Post[]> {
@@ -58,31 +59,40 @@ export function useFetchBlogById(username: string, postId: string): UseFetchBlog
     const [post, setPost] = useState<Post | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    useEffect(() => {
-        async function fetchBlog() {
-            try {
-                setLoading(true);
-                setError(null);
-                
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/${username}/${postId}`, {
-                    headers: { 'Content-Type': 'application/json' }
-                });
-                console.log("res", response)
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const data: PostCardProps = await response.json();
-                setPost(data.post);
-            } catch (err) {
-                setError(err instanceof Error ? err.message : 'Failed to fetch post');
-            } finally {
-                setLoading(false);
+
+    async function fetchBlog() {
+        try {
+            setLoading(true);
+            setError(null);
+            
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/${username}/${postId}`, {
+                headers: { 'Content-Type': 'application/json' }
+            });
+            console.log("res", response)
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
+            
+            const data: PostCardProps = await response.json();
+            setPost(data.post);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to fetch post');
+        } finally {
+            setLoading(false);
         }
+    }
+
+    useEffect(() => {
         if (postId) {
             fetchBlog();
         }
     }, [postId]);
-    return { post, loading, error };
+
+    const refetch = () => {
+        if (postId) {
+            fetchBlog();
+        }
+    };
+
+    return { post, loading, error, refetch };
 }
