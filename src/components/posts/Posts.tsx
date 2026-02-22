@@ -8,7 +8,7 @@ const Posts = () => {
     <div>
       {/* mini header */}
       <div className="bg-white border-b border-gray-100">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-9">
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
             Latest Stories
           </h1>
@@ -44,7 +44,7 @@ const Posts = () => {
               />
             </svg>
 
-            <h3 className="text-lg font-medium text-gray-900 mb-2">Failed to load posts</h3>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Something went wrong.</h3>
             <p className="text-gray-600">{error}</p>
           </div>
         )}

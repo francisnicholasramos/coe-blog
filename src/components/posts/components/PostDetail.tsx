@@ -99,18 +99,6 @@ const PostDetail = () => {
                     {post.comments?.length ? ` (${post.comments.length})` : ''}
                 </h2>
 
-                {/* comment form */}
-                {/* <div className="mb-8"> */}
-                {/*     <textarea */}
-                {/*         className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none" */}
-                {/*         rows={1} */}
-                {/*         placeholder="Write a comment..." */}
-                {/*     /> */}
-                {/*     <button className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"> */}
-                {/*         Post Comment */}
-                {/*     </button> */}
-                {/* </div> */}
-
                 <TextField
                     fullWidth
                     multiline
