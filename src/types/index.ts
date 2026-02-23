@@ -32,3 +32,9 @@ export interface PostCardProps {
 }
 
 export type CommentType = 'PUBLIC' | 'PRIVATE';
+
+// Auth
+export interface LoginProps {
+    username: string;
+    password: string;
+}
