@@ -9,25 +9,26 @@ import { IoSendSharp } from "react-icons/io5";
 const PostDetail = () => {
     const { username, postId } = useParams<{ username: string; postId: string }>();
     const { post, loading, error, refetch } = useFetchBlogById(username || '', postId || '');
-    const [commentText, setCommentText] = useState("");
+    const [comment, setComment] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleSubmitComment = async () => {
-        if (!commentText.trim() || !postId || isSubmitting) return;
+        if (!comment.trim() || !postId || isSubmitting) return;
 
         setIsSubmitting(true);
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/comments?id=${postId}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ content: commentText.trim() })
+                credentials: 'include',
+                body: JSON.stringify({ content: comment.trim() })
             });
 
             if (!response.ok) {
                 throw new Error('Failed to post comment');
             }
 
-            setCommentText("");
+            setComment("");
             refetch();
         } catch (err) {
             console.error('Error posting comment:', err);
@@ -103,8 +104,8 @@ const PostDetail = () => {
                     fullWidth
                     multiline
                     rows={1}
-                    value={commentText}
-                    onChange={(e) => setCommentText(e.target.value)}
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
                     onKeyDown={(e) => {
                         if (e.key === 'Enter' && !e.shiftKey) {
                             e.preventDefault();
