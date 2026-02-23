@@ -1,36 +1,20 @@
 import { useState } from 'react';
-import { Link } from 'react-router';
-import { useAuth } from '../hooks/useAuth';
-import AuthModal from './AuthModal';
+import { Link, useNavigate } from 'react-router';
+import {useAuth} from '../hooks/useAuth';
 
 export function Header() {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [authModalOpen, setAuthModalOpen] = useState(false);
-  const [authModalMode, setAuthModalMode] = useState<'login' | 'signup'>('login');
-  const { isAuthenticated, user, logout } = useAuth();
+    const navigate = useNavigate();
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
 
-  const handleWriteClick = () => {
-    if (!isAuthenticated) {
-      setAuthModalMode('login');
-      setAuthModalOpen(true);
-    } else {
-      window.location.href = 'http://localhost:3001';
-    }
-  };
+    const { isAuthenticated, user } = useAuth();
 
-  const handleSignInClick = () => {
-    setAuthModalMode('login');
-    setAuthModalOpen(true);
-  };
-
-  const handleSignUpClick = () => {
-    setAuthModalMode('signup');
-    setAuthModalOpen(true);
-  };
-
-  const handleLogout = async () => {
-    await logout();
-  };
+    const handleLogout = async () => {
+        await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
+            method: "POST",
+            credentials: "include"
+        })
+        navigate('/login');
+    };
 
   return (
     <>
@@ -82,10 +66,7 @@ export function Header() {
               </div>
 
               {/* Write Button */}
-              <button 
-                onClick={handleWriteClick}
-                className="hidden sm:flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors"
-              >
+              <button className="hidden sm:flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors" >
                 <svg
                   className="w-5 h-5"
                   fill="none"
@@ -102,49 +83,33 @@ export function Header() {
                 <span className="text-sm font-medium">Write</span>
               </button>
 
-              {isAuthenticated ? (
-                <>
-                  {/* User Name */}
-                  <span className="text-sm font-medium text-gray-600">
-                    {user?.username}
-                  </span>
-                  {/* Logout */}
-                  <button 
-                    onClick={handleLogout}
-                    className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
-                  >
-                    Logout
-                  </button>
-                </>
-              ) : (
-                <>
-                  {/* Sign In */}
-                  <button 
-                    onClick={handleSignInClick}
-                    className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
-                  >
-                    Sign In
-                  </button>
-
-                  {/* Sign Up */}
-                  <button 
-                    onClick={handleSignUpClick}
-                    className="px-4 py-2 text-sm font-medium text-white bg-gray-900 rounded-full hover:bg-gray-800 transition-colors"
-                  >
-                    Sign Up
-                  </button>
-                </>
-              )}
+                {isAuthenticated ? (
+                  <>
+                    <Link to="/dashboard">
+                      <span className="text-sm font-medium text-gray-600">Dashboard</span>
+                    </Link>
+                    <span className="text-sm font-medium text-gray-600">{user?.username}</span>
+                    <button onClick={handleLogout} className="text-sm font-medium text-gray-600 hover:text-gray-900">
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/login">
+                      <button className="text-sm font-medium text-gray-600 hover:text-gray-900">Sign In</button>
+                    </Link>
+                    <Link to="/signup">
+                      <button className="px-4 py-2 text-sm font-medium text-white bg-gray-900 rounded-full hover:bg-gray-800">
+                        Sign Up
+                      </button>
+                    </Link>
+                  </>
+                )}
             </div>
           </div>
         </div>
       </header>
 
-      <AuthModal 
-        open={authModalOpen} 
-        onClose={() => setAuthModalOpen(false)}
-        initialMode={authModalMode}
-      />
     </>
   );
 }
