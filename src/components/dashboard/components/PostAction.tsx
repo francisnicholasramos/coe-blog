@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { formatDate } from "../utils/formatDate";
+import { Switch } from "@heroui/react";
 
 interface PostData {
     id: string;
     title: string;
     content: string;
+    published: boolean;
     createdAt: string;
     user: {
         username: string;
@@ -14,6 +16,9 @@ interface PostData {
         id: string;
         content: string;
         createdAt: string;
+        user: {
+            username: string;
+        }
     }>;
 }
 
@@ -29,6 +34,7 @@ const PostAction = () => {
     const [editTitle, setEditTitle] = useState('');
     const [editContent, setEditContent] = useState('');
     const [isSaving, setIsSaving] = useState(false);
+    const [isPublic, setIsPublic] = useState(false);
 
     // Delete state
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -54,6 +60,7 @@ const PostAction = () => {
 
                 const data = await res.json();
                 setPost(data.post);
+                setIsPublic(data.post.published);
             } catch {
                 setError('Failed to load post');
             } finally {
@@ -94,7 +101,11 @@ const PostAction = () => {
                 method: 'PUT',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ title: editTitle, content: editContent }),
+                body: JSON.stringify({ 
+                    title: editTitle, 
+                    content: editContent,
+                    published: isPublic
+                }),
             });
 
             if (res.ok) {
@@ -273,9 +284,22 @@ const PostAction = () => {
                     </div>
                 )}
 
+
+
                 {/* Edit Actions */}
                 {isEditing && (
                     <div className="flex justify-end gap-3 mb-8">
+                        <div className="flex items-center gap-2">
+                            <Switch
+                                isSelected={isPublic}
+                                onValueChange={setIsPublic}
+                                color="success"
+                                size="sm"
+                            />
+                            <span className="text-sm text-zinc-500">
+                                {isPublic ? "Public" : "Private"}
+                            </span>
+                        </div>
                         <button
                             onClick={handleCancelEdit}
                             disabled={isSaving}
@@ -303,8 +327,18 @@ const PostAction = () => {
                             {post.comments.map((comment) => (
                                 <div
                                     key={comment.id}
-                                    className="bg-zinc-50 dark:bg-zinc-800 rounded-lg p-4"
+                                    className="bg-zinc-100 dark:bg-zinc-800 rounded-lg p-4"
                                 >
+                                    <div className="flex gap-x-2">
+                                    <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-xs font-medium text-gray-600 shrink-0">
+                                        {comment.user?.username?.charAt(0).toUpperCase() || 'A'}
+                                    </div>
+                                    <div className="flex items-center space-x-2 mb-1">
+                                        <span className="font-medium text-gray-900">
+                                            {comment.user?.username || 'Anonymous'}
+                                        </span>
+                                    </div>
+                                    </div>
                                     <p className="text-zinc-700 dark:text-zinc-300">
                                         {comment.content}
                                     </p>
