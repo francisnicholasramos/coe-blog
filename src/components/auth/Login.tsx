@@ -10,15 +10,6 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
 
-    const verifySession = async () => {
-        const sessionRes = await fetch(`${import.meta.env.VITE_API_URL}/me`, {
-            credentials: 'include',
-            headers: { 'Content-Type': 'application/json' }
-        });
-
-        return sessionRes.ok;
-    };
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsLoading(true);
@@ -32,12 +23,6 @@ const Login = () => {
             });
 
             if (res.ok) {
-                const hasSession = await verifySession();
-
-                if (!hasSession) {
-                    setError('Something went wrong.');
-                    return;
-                }
                 window.location.href = '/dashboard'
             } else {
                 const error = await res.json();

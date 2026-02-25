@@ -39,8 +39,8 @@ export function usePosts(): UsePostsReturn {
 
         try {
             const response = await fetch(`${import.meta.env.VITE_API_URL}/me`, {
-                credentials: 'include',
                 headers: {'Content-Type': 'application/json'},
+                credentials: 'include'
             });
 
             if (response.status === 401 || response.status === 403) {
