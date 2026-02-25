@@ -13,7 +13,7 @@ export function Header() {
             method: "POST",
             credentials: "include"
         })
-        navigate('/login');
+        window.location.href='/login'
     };
 
   return (
@@ -66,7 +66,10 @@ export function Header() {
               </div>
 
               {/* Write Button */}
-              <button className="hidden sm:flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors" >
+              <button 
+                onClick={() => isAuthenticated ? navigate('/write') : navigate('/login')}
+                className="hidden sm:flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors" 
+              >
                 <svg
                   className="w-5 h-5"
                   fill="none"
@@ -96,7 +99,7 @@ export function Header() {
                 ) : (
                   <>
                     <Link to="/login">
-                      <button className="text-sm font-medium text-gray-600 hover:text-gray-900">Sign In</button>
+                      <button className="text-sm font-medium text-gray-600 hover:text-gray-900">Login</button>
                     </Link>
                     <Link to="/signup">
                       <button className="px-4 py-2 text-sm font-medium text-white bg-gray-900 rounded-full hover:bg-gray-800">
