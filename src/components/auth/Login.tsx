@@ -1,10 +1,8 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import type {LoginProps} from "../../types/index";
 import {Form, Input, Button} from "@heroui/react";
 
 const Login = () => {
-    const navigate = useNavigate();
     const [credentials, setCredentials] = useState<LoginProps>({
         username: '',
         password: ''
@@ -25,7 +23,7 @@ const Login = () => {
             });
 
             if (res.ok) {
-                navigate('/dashboard')
+                window.location.href = '/dashboard'
             } else {
                 const error = await res.json();
                 setError(error.message) 
@@ -39,8 +37,8 @@ const Login = () => {
 
     return (
         <div className="flex flex-col items-center mt-2 mx-auto p-3 gap-y-2 justify-center w-full min-w-xs max-w-sm">
-            <Form onSubmit={handleSubmit} className="w-full p-5 rounded-md">
-                <h1 className="text-2xl mx-auto">Login</h1>
+            <h1 className="text-2xl mx-auto">Login</h1>
+            <Form onSubmit={handleSubmit} className="w-full rounded-md">
                 {/* username field */}
                 <Input 
                     label="Username" 
