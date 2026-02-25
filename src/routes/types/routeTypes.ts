@@ -1,6 +1,7 @@
 export type RouteSwitchProps = {
     Header: React.ReactNode;
-    pages: Page[]
+    pages: Page[];
+    Footer: React.ReactNode;
 }
 
 type Page = {

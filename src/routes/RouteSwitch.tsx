@@ -1,7 +1,7 @@
 import {Route, Routes} from "react-router-dom"
 import type {RouteSwitchProps} from './types/routeTypes'
 
-const RouteSwitch: React.FC<RouteSwitchProps> = ({Header, pages}) => {
+const RouteSwitch: React.FC<RouteSwitchProps> = ({Header, pages, Footer}) => {
     return (
         <>
             {Header}
@@ -10,6 +10,7 @@ const RouteSwitch: React.FC<RouteSwitchProps> = ({Header, pages}) => {
                     <Route path={page.path} element={page.element} />
                 ))}
             </Routes>
+            {Footer}
         </>
     )
 }
