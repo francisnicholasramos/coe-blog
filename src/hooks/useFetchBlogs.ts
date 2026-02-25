@@ -30,6 +30,7 @@ async function getPublicBlogs(): Promise<Post[]> {
     const data: PublicBlogsResponse = await response.json();
     return data.publicBlogs;
 }
+
 export function useFetchBlogs(): UseFetchBlogsReturn {
     const [blogs, setBlogs] = useState<Post[]>([]);          
     const [loading, setLoading] = useState(true);            
@@ -68,7 +69,7 @@ export function useFetchBlogById(username: string, postId: string): UseFetchBlog
             const response = await fetch(`${import.meta.env.VITE_API_URL}/${username}/${postId}`, {
                 headers: { 'Content-Type': 'application/json' }
             });
-            console.log("res", response)
+            
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
