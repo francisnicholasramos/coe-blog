@@ -1,8 +1,19 @@
 import {Link} from "react-router-dom";
 import type { PostCardProps } from "../../../types";
 import {helpers} from '../../../utils/helpers';
+import {Skeleton} from "@heroui/react";
 
-const PostCard = ({ post }: PostCardProps) => {
+const PostCard = ({ post, loading }: PostCardProps) => {
+    if (loading) {
+        return (
+            <div className="py-6">
+                <Skeleton className="h-4 w-32 mb-2" />
+                <Skeleton className="h-6 w-3/4 mb-2" />
+                <Skeleton className="h-4 w-full mb-2" />
+                <Skeleton className="h-4 w-48" />
+            </div>
+        );
+    }
     return (
         <Link to={`/@${post.user?.username || 'user'}/${post.id}`}>
         <article className="flex flex-col sm:flex-row items-start justify-between py-6 border-gray-500 last:border-b-0">

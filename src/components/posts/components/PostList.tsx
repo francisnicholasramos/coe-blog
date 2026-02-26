@@ -3,9 +3,10 @@ import PostCard from "./PostCard";
 
 interface PostListProps {
   posts: Post[]; 
+  loading?: boolean;
 }
 
-const PostList = ({ posts }: PostListProps) => {
+const PostList = ({ posts, loading }: PostListProps) => {
     if (!posts || posts.length === 0) {
         return (
             <div className="text-center py-12">
@@ -31,7 +32,7 @@ const PostList = ({ posts }: PostListProps) => {
     return (
         <div className="divide-y divide-gray-100">
             {posts.map((post) => (
-                <PostCard key={post.id} post={post} />
+                <PostCard key={post.id} post={post} loading={loading} />
             ))}
         </div>
     );

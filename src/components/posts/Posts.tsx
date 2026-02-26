@@ -50,7 +50,7 @@ const Posts = () => {
         )}
 
         {/* If not loading and no error, show the list of posts */}
-        {!loading && !error && <PostList posts={blogs} />}
+        {!loading && !error && <PostList posts={blogs} loading={loading} />}
       </div>
     </div>
   );

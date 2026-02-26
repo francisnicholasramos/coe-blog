@@ -29,6 +29,7 @@ export interface Comment {
 
 export interface PostCardProps {
     post: Post;
+    loading: boolean;
 }
 
 export type CommentType = 'PUBLIC' | 'PRIVATE';
