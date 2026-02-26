@@ -1,5 +1,6 @@
 import type { Post } from "../../../types";
 import PostCard from "./PostCard";
+import PostCardSkeleton from "./PostCardSkeleton";
 
 interface PostListProps {
   posts: Post[]; 
@@ -7,6 +8,15 @@ interface PostListProps {
 }
 
 const PostList = ({ posts, loading }: PostListProps) => {
+   if (loading) {
+        return (
+            <div className="divide-y divide-gray-100">
+                {[...Array(5)].map((_, i) => (
+                    <PostCardSkeleton key={i} />
+                ))}
+            </div>
+        );
+    }
     if (!posts || posts.length === 0) {
         return (
             <div className="text-center py-12">
