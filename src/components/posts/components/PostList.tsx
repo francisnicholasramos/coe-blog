@@ -3,7 +3,7 @@ import PostCard from "./PostCard";
 
 interface PostListProps {
   posts: Post[]; 
-  loading?: boolean;
+  loading: boolean;
 }
 
 const PostList = ({ posts, loading }: PostListProps) => {
