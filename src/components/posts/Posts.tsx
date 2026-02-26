@@ -19,6 +19,9 @@ const Posts = () => {
       </div>
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* loading */}
+        {!loading && !error && <PostList posts={blogs} loading={loading} />}
+
         {/* error */}
         {error && (
           <div className="text-center py-12">
