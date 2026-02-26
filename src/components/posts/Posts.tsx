@@ -19,14 +19,6 @@ const Posts = () => {
       </div>
 
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* loading  */}
-        {loading && (
-          <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
-            <span className="ml-3 text-gray-600">Loading posts...</span>
-          </div>
-        )}
-
         {/* error */}
         {error && (
           <div className="text-center py-12">
