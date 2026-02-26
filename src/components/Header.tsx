@@ -13,7 +13,7 @@ export function Header() {
             method: "POST",
             credentials: "include"
         })
-        window.location.href='/login'
+        window.location.href = "/login"
     };
 
   return (
@@ -67,7 +67,7 @@ export function Header() {
 
               {/* Write Button */}
               <button 
-                onClick={() => isAuthenticated ? navigate('/write') : navigate('/login')}
+                onClick={() => navigate('/write')}
                 className="hidden sm:flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors" 
               >
                 <svg
