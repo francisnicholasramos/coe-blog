@@ -12,8 +12,7 @@ import RouteSwitch from './routes/RouteSwitch'
 
 const App = () => {
     return (
-<div id="outer-container" className='min-h-screen flex flex-col'>
-    <div id="page-wrap">
+        <div className='min-h-screen flex flex-col'>
             <RouteSwitch 
                 Header={<Header />}
                 pages={[
@@ -60,11 +59,10 @@ const App = () => {
                             <DashBoard />
                         ),
                         path: "/dashboard"
-                    }
+                    },
                 ]}
                 Footer={<Footer />}
             />
-        </div>
         </div>
     )
 }
