@@ -89,7 +89,7 @@ const PostDetail = () => {
             </header>
 
             {/* content */}
-            <section className="prose mb-6 text-gray-700">
+            <section className="whitespace-pre-wrap prose mb-6 text-gray-700">
                 {post.content}
             </section>
 
