@@ -1,17 +1,22 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
+import {Spinner} from '@heroui/react';
+
 interface ProtectedRouteProps {
     children: React.ReactNode;
 }
+
 const ProtectedRoute = ({ children }: ProtectedRouteProps) =>  {
-    const { isAuthenticated, loading } = useAuth();
+    const { isAuthenticated, loading } = useAuth()
     if (loading) {
-        return <div>Loading...</div>; 
+        return <div className="flex items-center justify-center min-h-full">
+                    <Spinner className="mt-5" variant="spinner" />
+               </div> 
     }
     if (!isAuthenticated) {
-        return <Navigate to="/login" replace />;
+        return <Navigate to="/login" replace />
     }
-    return <>{children}</>;
+    return <>{children}</>
 }
 
 export default ProtectedRoute;
