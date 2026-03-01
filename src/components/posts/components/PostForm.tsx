@@ -1,5 +1,7 @@
 import { useState } from "react";
-import {Form, Input, Textarea, Switch, Button} from "@heroui/react";
+import {Form, Input, Switch, Button} from "@heroui/react";
+import TinyMCE from "../../editor/TinyMCE";
+
 const PostForm = () => {
     const [contents, setContents] = useState({
         title: '',
@@ -10,6 +12,13 @@ const PostForm = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        const textOnly = contents.content.replace(/<[^>]*>/g, '').trim();
+        if (!textOnly) {
+            setError('Content is required');
+            return;
+        }
+
         try {
             const res = await fetch(`${import.meta.env.VITE_API_URL}/posts`, {
                 method: 'POST',
@@ -21,6 +30,7 @@ const PostForm = () => {
                     published: contents.isPublish
                 })
             })
+
 
             if (res.ok) {
                 window.location.href = "/dashboard"
@@ -47,17 +57,14 @@ const PostForm = () => {
                     }}
                 />
 
-                <Textarea
-                    isRequired
-                    disableAutosize
-                    labelPlacement="outside"
-                    onChange={(e) => setContents({...contents, content: e.target.value})}
-                    placeholder="Post content"
-                    minRows={3}
-                    classNames={{
-                        input: "resize-y min-h-[40px]",
-                    }}
+                <TinyMCE 
+                    value={contents.content}
+                    onChange={(content) => setContents({...contents, content})}
                 />
+
+                {error && (
+                    <p className="text-red-500 text-sm">{error}</p>
+                )}
 
                 <div className="flex items-center gap-2">
                     <Switch 
@@ -70,9 +77,6 @@ const PostForm = () => {
                     </label>
                 </div>
                 
-                {error && (
-                    <p className="text-red-500 text-sm">{error}</p>
-                )}
 
                 <Button
                     type="submit"

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { formatDate } from "../utils/formatDate";
 import { Switch } from "@heroui/react";
+import TinyMCE from "../../editor/TinyMCE";
 
 interface PostData {
     id: string;
@@ -88,7 +89,8 @@ const PostAction = () => {
     };
 
     const handleSave = async () => {
-        if (!editTitle.trim() || !editContent.trim()) {
+        const textOnly = editContent.replace(/<[^>]*>/g, '').trim();
+        if (!editTitle.trim() || !textOnly) {
             setError('Title and content are required');
             return;
         }
@@ -269,19 +271,16 @@ const PostAction = () => {
                 {/* Content - Editable or View */}
                 {isEditing ? (
                     <div className="mb-8">
-                        <textarea
+                        <TinyMCE 
                             value={editContent}
-                            onChange={(e) => setEditContent(e.target.value)}
-                            className="w-full min-h-[300px] p-4 bg-zinc-50 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-lg text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"
-                            placeholder="Post content"
+                            onChange={(content) => setEditContent(content)}
                         />
                     </div>
                 ) : (
-                    <div className="prose dark:prose-invert max-w-none mb-8">
-                        <p className="text-zinc-700 dark:text-zinc-300 whitespace-pre-wrap">
-                            {post.content}
-                        </p>
-                    </div>
+                    <div 
+                        className="prose dark:prose-invert max-w-none mb-8 text-zinc-700 dark:text-zinc-300"
+                        dangerouslySetInnerHTML={{ __html: post.content }}
+                    />
                 )}
 
 

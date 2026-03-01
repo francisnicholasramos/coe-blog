@@ -89,9 +89,10 @@ const PostDetail = () => {
             </header>
 
             {/* content */}
-            <section className="whitespace-pre-wrap prose mb-6 text-gray-700">
-                {post.content}
-            </section>
+            <section 
+                className="whitespace-pre-wrap prose mb-6 text-gray-700"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+            />
 
             {/* comments  */}
             <section>

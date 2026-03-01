@@ -1,6 +1,7 @@
 import {Link} from "react-router";
 import type { CardProps } from '../hooks/usePosts';
 import {formatDate} from "../utils/formatDate";
+import {helpers} from "../../../utils/helpers";
 
 const Card = ({ posts, isLoading, error }: CardProps) => {
     return (
@@ -28,9 +29,10 @@ const Card = ({ posts, isLoading, error }: CardProps) => {
                 <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 mb-2">
                   {post.title}
                 </h2>
-                <p className="text-zinc-500 dark:text-zinc-400 text-sm line-clamp-3">
-                  {post.content}
-                </p>
+                    <p className="text-zinc-500 dark:text-zinc-400 text-sm line-clamp-3">
+                        {helpers.stripHtml(post.content).substring(0, 150)}
+                        {post.content.length > 150 ? '...' : ''}
+                    </p>
                 <time className="text-xs text-zinc-400 dark:text-zinc-500 mt-4 block">
                   {formatDate(new Date(post.createdAt))}
                 </time>

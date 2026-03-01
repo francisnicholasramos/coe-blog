@@ -37,7 +37,7 @@ const PostCard = ({ post, loading }: PostCardProps) => {
 
                 {/* Preview Content - Shows first 150 characters with ... if longer */}
                 <p className="text-gray-600 text-sm mb-3 line-clamp-2 leading-relaxed">
-                    {post.content.substring(0, 150)}
+                    {helpers.stripHtml(post.content).substring(0, 150)}
                     {post.content.length > 150 ? '...' : ''}
                 </p>
 
