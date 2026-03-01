@@ -13,7 +13,12 @@ const formatDate = (dateString: string) => {
     });
 };
 
+const stripHtml = (html: string): string => {
+  return html.replace(/<[^>]*>/g, '').trim();
+};
+
 export const helpers = {
     formatDate,
+    stripHtml,
     calculateReadTime
 }
