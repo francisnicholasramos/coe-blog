@@ -68,13 +68,11 @@ const PostForm = () => {
 
                 <div className="flex items-center gap-2">
                     <Switch 
-                        aria-label="Automatic updates" 
                         color="success"
                         onValueChange={(isSelected) => setContents({...contents, isPublish: isSelected})}
-                    />
-                    <label className="text-md text-gray-500">
-                        Publish
-                    </label>
+                    >
+                        <span className="text-md text-gray-500 cursor-pointer">Publish</span>
+                    </Switch>
                 </div>
                 
 
