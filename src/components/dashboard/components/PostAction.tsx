@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router';
 import { formatDate } from "../utils/formatDate";
 import { Switch } from "@heroui/react";
 import TinyMCE from "../../editor/TinyMCE";
+import {apiFetch} from "../../../utils/api";
 
 interface PostData {
     id: string;
@@ -46,7 +47,7 @@ const PostAction = () => {
     useEffect(() => {
         const fetchPost = async () => {
             try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`, {
+                const res = await apiFetch(`/posts/${postId}`, {
                     credentials: 'include',
                     headers: { 'Content-Type': 'application/json' },
                 });
@@ -97,7 +98,7 @@ const PostAction = () => {
         setError('');
 
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`, {
+            const res = await apiFetch(`/posts/${postId}`, {
                 method: 'PUT',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
@@ -127,7 +128,7 @@ const PostAction = () => {
         setError('');
 
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`, {
+            const res = await apiFetch(`/posts/${postId}`, {
                 method: 'DELETE',
                 credentials: 'include',
             });

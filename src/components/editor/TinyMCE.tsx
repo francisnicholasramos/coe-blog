@@ -1,5 +1,6 @@
 import {useRef} from "react";
 import { Editor } from '@tinymce/tinymce-react';
+import {apiFetch} from "../../utils/api";
 
 interface TinyMCEProps {
   value: string;
@@ -16,7 +17,7 @@ const TinyMCE = ({value, onChange} : TinyMCEProps) => {
 
     const deleteImageFromCloudinary = async (url: string) => {
         try {
-            await fetch(`${import.meta.env.VITE_API_URL}/uploadImage`, {
+            await apiFetch(`/uploadImage`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ url })
@@ -46,7 +47,7 @@ const TinyMCE = ({value, onChange} : TinyMCEProps) => {
         return new Promise((resolve, reject) => {
             const formData = new FormData();
             formData.append('file', file);
-            fetch(`${import.meta.env.VITE_API_URL}/uploadImage`, { 
+            apiFetch(`/uploadImage`, { 
                 method: 'POST', 
                 body: formData 
             })

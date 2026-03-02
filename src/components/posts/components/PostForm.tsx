@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {apiFetch} from "../../../utils/api";
 import {Form, Input, Switch, Button} from "@heroui/react";
 import TinyMCE from "../../editor/TinyMCE";
 
@@ -20,7 +21,7 @@ const PostForm = () => {
         }
 
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/posts`, {
+            const res = await apiFetch(`/posts`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 credentials: 'include',

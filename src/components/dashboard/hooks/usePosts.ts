@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import {apiFetch} from "../../../utils/api";
 
 export interface Post {
     id: string;
@@ -38,7 +39,7 @@ export function usePosts(): UsePostsReturn {
         setError('');
 
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/me`, {
+            const response = await apiFetch('/me', {
                 headers: {'Content-Type': 'application/json'},
                 credentials: 'include'
             });
@@ -63,7 +64,7 @@ export function usePosts(): UsePostsReturn {
 
     const getPostById = useCallback(async (postId: string, username: string) => {
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${username}/${postId}`, {
+            const res = await apiFetch(`/posts/${username}/${postId}`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: {'Content-Type': 'application/json'}
@@ -85,7 +86,7 @@ export function usePosts(): UsePostsReturn {
 
     const createPost = useCallback(async (title: string, content: string): Promise<boolean> => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/posts`, {
+            const response = await apiFetch(`/posts`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {'Content-Type': 'application/json'},
@@ -108,7 +109,7 @@ export function usePosts(): UsePostsReturn {
 
     const updatePost = useCallback(async (postId: string, title: string, content: string): Promise<boolean> => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`, {
+            const response = await apiFetch(`/posts/${postId}`, {
                 method: 'PUT',
                 credentials: 'include',
                 headers: {'Content-Type': 'application/json'},
@@ -131,7 +132,7 @@ export function usePosts(): UsePostsReturn {
 
     const deletePost = useCallback(async (postId: string): Promise<boolean> => {
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`, {
+            const response = await apiFetch(`/posts/${postId}`, {
                 method: 'DELETE',
                 credentials: 'include',
                 headers: {'Content-Type': 'application/json'},

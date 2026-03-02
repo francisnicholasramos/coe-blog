@@ -4,6 +4,7 @@ import {useAuth} from '../hooks/useAuth';
 import {Button} from "@heroui/react";
 import BurgerMenu from './dashboard/components/BurgerMenu'
 import { FaRegPenToSquare } from "react-icons/fa6";
+import {apiFetch} from "../utils/api";
 
 export function Header() {
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ export function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { isAuthenticated, user } = useAuth();
     const handleLogout = async () => {
-        await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
+        await apiFetch(`/logout`, {
             method: "POST",
             credentials: "include"
         })
