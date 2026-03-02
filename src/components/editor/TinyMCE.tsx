@@ -16,6 +16,9 @@ const TinyMCE = ({value, onChange} : TinyMCEProps) => {
                     placeholder: "Post content here...",
                     onboarding: false,
                     width: '100%',
+                    mobile: {
+                        menubar: true
+                    },
                     plugins: [
                         'autolink', 'lists', 'link', 'image'
                     ],
