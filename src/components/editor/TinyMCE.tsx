@@ -1,4 +1,4 @@
-import {useState, useRef} from "react";
+import {useRef} from "react";
 import { Editor } from '@tinymce/tinymce-react';
 
 interface TinyMCEProps {
@@ -7,7 +7,6 @@ interface TinyMCEProps {
 }
 
 const TinyMCE = ({value, onChange} : TinyMCEProps) => {
-    const [uploadedImages, setUploadedImages] = useState<string[]>([]);
     const prevContentRef = useRef<string>('');
 
     const extractCloudinaryUrls = (content: string): string[] => {
@@ -39,9 +38,6 @@ const TinyMCE = ({value, onChange} : TinyMCEProps) => {
             deleteImageFromCloudinary(url);
         });
 
-        // update tracked images
-        setUploadedImages(prev => prev.filter(url => newUrls.includes(url)));
-
         prevContentRef.current = newContent;
         onChange(newContent);
     };
@@ -57,7 +53,6 @@ const TinyMCE = ({value, onChange} : TinyMCEProps) => {
                 .then(res => res.json())
                 .then(data => {
                     const url = data.url;
-                    setUploadedImages(prev => [...prev, url]);  // track uploaded URL
                     resolve(url);
                 })
                 .catch(reject);
