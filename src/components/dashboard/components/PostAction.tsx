@@ -51,8 +51,6 @@ const PostAction = () => {
                     headers: { 'Content-Type': 'application/json' },
                 });
 
-                console.log('res', res)
-
                 if (!res.ok) {
                     const errorData = await res.json();
                     setError(errorData.message || 'Post not found');
@@ -162,12 +160,21 @@ const PostAction = () => {
             <div className="max-w-4xl mx-auto px-4 py-8">
                 <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
                     <p className="text-red-600 dark:text-red-400">{error}</p>
-                    <button
-                        onClick={() => navigate('/dashboard')}
-                        className="mt-4 text-blue-600 hover:underline"
-                    >
-                        Back to Dashboard
-                    </button>
+                    <div className="flex mt-3 items-center justify-center space-x-3">
+                        <button
+                            onClick={() => navigate('/')}
+                            className="text-blue-600 hover:underline"
+                        >
+                            Read posts
+                        </button>
+                        <span>/</span>
+                        <button
+                            onClick={() => navigate('/login')}
+                            className="text-blue-600 hover:underline"
+                        >
+                            Login
+                        </button>
+                    </div>
                 </div>
             </div>
         );
@@ -182,10 +189,10 @@ const PostAction = () => {
     }
 
     return (
-        <div className="flex flex-col justify-center w-full min-w-xs max-w-4xl mx-auto px-4 py-8">
+        <div className="flex flex-col justify-center w-full min-w-xs max-w-4xl mx-auto px-2 py-3">
             <button
                 onClick={() => navigate('/dashboard')}
-                className="mb-6 text-gray-400 cursor-pointer hover:underline flex items-center gap-2"
+                className="mb-3 text-gray-400 cursor-pointer hover:underline flex items-center"
             >
                 ← Back to Dashboard
             </button>
@@ -220,25 +227,11 @@ const PostAction = () => {
                 </div>
             )}
 
-            <article className="bg-white min-w-full dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-8">
+            <article className="bg-white min-w-full dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 pt-4 px-4">
                 {/* Header with Edit/Delete buttons */}
-                <div className="flex justify-between items-start mb-6">
-                    {isEditing ? (
-                        <input
-                            type="text"
-                            value={editTitle}
-                            onChange={(e) => setEditTitle(e.target.value)}
-                            className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 bg-transparent border-b-2 border-zinc-300 dark:border-zinc-700 focus:border-blue-500 outline-none w-full"
-                            placeholder="Post title"
-                        />
-                    ) : (
-                        <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100">
-                            {post.title}
-                        </h1>
-                    )}
-
+                <div className="flex flex-col gap-y-1">
                     {!isEditing && (
-                        <div className="flex gap-2 ml-4">
+                        <div className="flex ml-auto">
                             <button
                                 onClick={() => setShowDeleteConfirm(true)}
                                 className="px-3 py-1.5 cursor-pointer text-sm text-red-400 hover:underline transition-colors"
@@ -253,9 +246,23 @@ const PostAction = () => {
                             </button>
                         </div>
                     )}
+
+                    {isEditing ? (
+                        <input
+                            type="text"
+                            value={editTitle}
+                            onChange={(e) => setEditTitle(e.target.value)}
+                            className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 bg-transparent border-b-2 border-zinc-300 dark:border-zinc-700 focus:border-blue-500 outline-none w-full"
+                            placeholder="Post title"
+                        />
+                    ) : (
+                        <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100">
+                            {post.title}
+                        </h1>
+                    )}
                 </div>
 
-                <div className="flex items-center gap-2 mb-6 text-sm text-zinc-500 dark:text-zinc-400">
+                <div className="flex items-center gap-2 my-4 text-sm text-zinc-500 dark:text-zinc-400">
                     <span>@{post.user.username}</span>
                     <span>•</span>
                     <time>{formatDate(new Date(post.createdAt))}</time>
@@ -270,7 +277,7 @@ const PostAction = () => {
 
                 {/* Content - Editable or View */}
                 {isEditing ? (
-                    <div className="mb-8">
+                    <div className="mb-2">
                         <TinyMCE 
                             value={editContent}
                             onChange={(content) => setEditContent(content)}
@@ -283,33 +290,32 @@ const PostAction = () => {
                     />
                 )}
 
-
-
                 {/* Edit Actions */}
                 {isEditing && (
-                    <div className="flex justify-end gap-3 mb-8">
+                    <div className="flex flex-col gap-3 mb-8">
                         <div className="flex items-center gap-2">
                             <Switch
                                 isSelected={isPublic}
                                 onValueChange={setIsPublic}
                                 color="success"
                                 size="sm"
-                            />
+                            >
                             <span className="text-sm text-zinc-500">
                                 {isPublic ? "Public" : "Private"}
                             </span>
+                            </Switch>
                         </div>
                         <button
                             onClick={handleCancelEdit}
                             disabled={isSaving}
-                            className="px-4 py-2 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg disabled:opacity-50"
+                            className="cursor-pointer text-sm sm:text-xs md:text-sm lg:text-lg px-4 py-2 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-lg disabled:opacity-50"
                         >
                             Cancel
                         </button>
                         <button
                             onClick={handleSave}
                             disabled={isSaving}
-                            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg disabled:opacity-50"
+                            className="cursor-pointer text-sm sm:text-xs md:text-sm lg:text-lg px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg disabled:opacity-50"
                         >
                             {isSaving ? 'Saving...' : 'Save Changes'}
                         </button>

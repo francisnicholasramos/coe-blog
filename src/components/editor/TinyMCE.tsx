@@ -16,14 +16,15 @@ const TinyMCE = ({value, onChange} : TinyMCEProps) => {
                     placeholder: "Post content here...",
                     onboarding: false,
                     width: '100%',
+                    menubar: "edit insert format",
                     mobile: {
-                        menubar: true
+                        menubar: "edit insert format",
                     },
                     plugins: [
                         'autolink', 'lists', 'link', 'image'
                     ],
                     file_picker_types: 'image',
-                    file_picker_callback: (cb: (url: string) => void) => {
+                    file_picker_callback: (callback: (url: string) => void) => {
                         const input = document.createElement('input');
                         input.setAttribute('type', 'file');
                         input.setAttribute('accept', 'image/*');
@@ -40,7 +41,7 @@ const TinyMCE = ({value, onChange} : TinyMCEProps) => {
                                 const res = await fetch(`${import.meta.env.VITE_API_URL}/uploadImage`, { method: 'POST', body: formData });
                                 const { url } = await res.json();
 
-                                cb(url);
+                                callback(url);
                             });
                             reader.readAsDataURL(file);
                         });
