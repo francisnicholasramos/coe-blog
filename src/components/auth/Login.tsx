@@ -1,12 +1,15 @@
 import { useState } from "react";
+import {apiFetch} from "../../utils/api";
 import type {LoginProps} from "../../types/index";
 import {Form, Input, Button} from "@heroui/react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 
 const Login = () => {
     const [credentials, setCredentials] = useState<LoginProps>({
         username: '',
         password: ''
     })
+    const [isVisible, setIsVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
 
@@ -15,12 +18,10 @@ const Login = () => {
         setIsLoading(true);
         setError('');
         try {
-            const res = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
+            const res = await apiFetch('/login', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
                 body: JSON.stringify(credentials)
-            });
+            })
 
             if (res.ok) {
                 window.location.href = '/dashboard'
@@ -50,9 +51,18 @@ const Login = () => {
                 {/* password field */}
                 <Input 
                     label="Password" 
-                    type="Password" 
+                    type={isVisible ? "text" : "password"}
                     onChange={(e) => setCredentials({...credentials, password: e.target.value})}
                     required
+                    endContent={
+                        <button
+                            type="button"
+                            onClick={() => setIsVisible(!isVisible)}
+                            className="focus:outline-none"
+                        >
+                            {isVisible ? <FaRegEyeSlash className="w-5 h-5" /> : <FaRegEye className="w-5 h-5" />}
+                        </button>
+                    }
                 />
 
                 {error && (

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import {Form, Input, Button} from "@heroui/react";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
 
 const Signup = () => {
     const [credentials, setCredentials] = useState({
@@ -7,6 +8,7 @@ const Signup = () => {
         email: '',
         password: ''
     });
+    const [isVisible, setIsVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
 
@@ -59,9 +61,18 @@ const Signup = () => {
                 {/* password field */}
                 <Input 
                     label="Password" 
-                    type="Password" 
+                    type={isVisible ? "text" : "password"}
                     onChange={(e) => setCredentials({...credentials, password: e.target.value})}
                     required
+                    endContent={
+                        <button
+                            type="button"
+                            onClick={() => setIsVisible(!isVisible)}
+                            className="focus:outline-none"
+                        >
+                            {isVisible ? <FaRegEyeSlash className="w-5 h-5" /> : <FaRegEye className="w-5 h-5" />}
+                        </button>
+                    }
                 />
 
                 {error && (
