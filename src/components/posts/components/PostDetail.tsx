@@ -90,8 +90,8 @@ const PostDetail = () => {
 
             {/* content */}
             <section 
-                className="whitespace-pre-wrap prose mb-6 text-gray-700"
-                dangerouslySetInnerHTML={{ __html: post.content }}
+                className="whitespace-pre-wrap mb-6 text-gray-700"
+                dangerouslySetInnerHTML={{ __html: helpers.formatText(post.content, true) }}
             />
 
             {/* comments  */}

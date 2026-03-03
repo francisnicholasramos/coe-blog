@@ -1,3 +1,5 @@
+import DOMPurify from 'dompurify';
+
 // Calculate read time (rough estimate: 200 words per minute)
 const calculateReadTime = (content: string) => {
     const words = content.trim().split(/\s+/).length;
@@ -13,12 +15,17 @@ const formatDate = (dateString: string) => {
     });
 };
 
-const stripHtml = (html: string): string => {
-  return html.replace(/<[^>]*>/g, '').trim();
+const formatText = (html: string, renderHtml: boolean = false): string => {
+    const sanitized = DOMPurify.sanitize(html);
+
+    if (renderHtml) return sanitized;
+
+    const doc = new DOMParser().parseFromString(sanitized, 'text/html');
+    return doc.body.textContent || '';
 };
 
 export const helpers = {
     formatDate,
-    stripHtml,
+    formatText,
     calculateReadTime
 }

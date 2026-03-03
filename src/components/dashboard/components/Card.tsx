@@ -5,7 +5,7 @@ import {helpers} from "../../../utils/helpers";
 
 const Card = ({ posts, isLoading, error }: CardProps) => {
     return (
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-8">
         {isLoading ? (
           <div className="flex justify-center py-12">
             <p className="text-zinc-500 dark:text-zinc-400">Loading posts...</p>
@@ -24,18 +24,23 @@ const Card = ({ posts, isLoading, error }: CardProps) => {
               <Link
                 key={post.id}
                 to={`/posts/${post.id}`}
-                className="block bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6 hover:border-blue-500 dark:hover:border-blue-500 transition-colors"
+                className="flex flex-col min-h-25 h-full bg-white dark:bg-zinc-900 rounded-lg border border-zinc-200 dark:border-zinc-800 p-6 hover:border-blue-500 dark:hover:border-blue-500 transition-colors"
               >
-                <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 mb-2">
-                  {post.title}
-                </h2>
+                <div>
+                    <h2 className="text-lg font-medium text-zinc-900 dark:text-zinc-100 mb-2 truncate">
+                      {post.title.split(/\s+/).slice(0, 10).join(' ')}
+                      {post.title.split(/\s+/).length > 10 ? '...' : ''}
+                    </h2>
                     <p className="text-zinc-500 dark:text-zinc-400 text-sm line-clamp-3">
-                        {helpers.stripHtml(post.content).substring(0, 150)}
+                        {helpers.formatText(post.content).substring(0, 150)}
                         {post.content.length > 150 ? '...' : ''}
                     </p>
-                <time className="text-xs text-zinc-400 dark:text-zinc-500 mt-4 block">
-                  {formatDate(new Date(post.createdAt))}
-                </time>
+                </div>
+                <div className="flex mt-auto">
+                    <time className="text-xs text-zinc-400 dark:text-zinc-500 mt-4 block">
+                      {formatDate(new Date(post.createdAt))}
+                    </time>
+                </div>
               </Link>
             ))}
           </div>
