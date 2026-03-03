@@ -21,7 +21,7 @@ interface UsePostsReturn {
     posts: Post[];
     isLoading: boolean;
     error: string;
-    fetchPosts: () => Promise<void>;
+    fetchPosts: (sortBy?: string, order?: string) => Promise<void>;
     getPostById: (postId: string, username: string) => Promise<boolean>;
     createPost: (title: string, content: string) => Promise<boolean>;
     updatePost: (postId: string, title: string, content: string) => Promise<boolean>;
@@ -34,12 +34,16 @@ export function usePosts(): UsePostsReturn {
     const [error, setError] = useState('');
 
     {/* get all blog posts */}
-    const fetchPosts = useCallback(async () => {
+    const fetchPosts = useCallback(async (sortBy?: string, order?: string) => {
         setIsLoading(true);
         setError('');
 
         try {
-            const response = await apiFetch('/me', {
+            const queryParams = new URLSearchParams();
+            if (sortBy) queryParams.set('sortBy', sortBy);
+            if (order) queryParams.set('order', order);
+
+            const response = await apiFetch(`/me?${queryParams.toString()}`, {
                 headers: {'Content-Type': 'application/json'},
                 credentials: 'include'
             });
