@@ -35,11 +35,13 @@ const SortItems = ({ fetchPosts }: SortItemsProps) => {
     };
 
     const buttonText = currentSort ? `Sort By: ${currentSort}` : "Sort By";
+
+    const isMobile = window.innerWidth < 768;
     return (
-        <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+        <div className="max-w-7xl w-full mx-auto">
             <Dropdown className="flex justify-end">
                 <DropdownTrigger>
-                    <Button className="flex items-center justify-center bg-transparent border border-gray-300">
+                    <Button size={isMobile ? "sm" : "md"} className="flex items-center justify-center bg-transparent border border-gray-300">
                         <span>{buttonText}</span>
                         <FaSortDown className="mb-1"/>
                     </Button>

@@ -58,7 +58,7 @@ const App = () => {
                         element: (
                             <DashBoard />
                         ),
-                        path: "/dashboard"
+                        path: ["/dashboard", "/dashboard/search"]
                     },
                 ]}
                 Footer={<Footer />}

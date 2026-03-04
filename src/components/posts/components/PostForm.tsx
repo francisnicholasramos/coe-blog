@@ -50,6 +50,7 @@ const PostForm = () => {
                 <Input 
                     type="text" 
                     placeholder="Post title"
+                    autoFocus
                     variant="underlined"
                     onChange={(e) => setContents({...contents, title: e.target.value})}
                     required
