@@ -2,36 +2,49 @@ import { useParams } from "react-router";
 import { useState } from "react";
 import { useFetchBlogById } from "../../../hooks/useFetchBlogs";
 import { helpers } from "../../../utils/helpers";
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
+import {Textarea, Button} from "@heroui/react";
 import { IoSendSharp } from "react-icons/io5";
 
 const PostDetail = () => {
     const { username, postId } = useParams<{ username: string; postId: string }>();
     const { post, loading, error, refetch } = useFetchBlogById(username || '', postId || '');
     const [comment, setComment] = useState("");
+    const [errorComment, setErrorComment] = useState<string>(""); 
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleSubmitComment = async () => {
-        if (!comment.trim() || !postId || isSubmitting) return;
+    const handleSubmitComment = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!comment.trim()) {
+            setErrorComment("Comment cannot be empty.")
+            return;
+        }
+
+        if (!postId || isSubmitting) return;
 
         setIsSubmitting(true);
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/comments?id=${postId}`, {
-                method: 'POST',
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/comments?id=${postId}`, { method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
                 body: JSON.stringify({ content: comment.trim() })
             });
+
+            if (response.status === 403) {
+                setErrorComment("You must be logged in to comment.")
+                setIsSubmitting(false);
+                return;
+            }
 
             if (!response.ok) {
                 throw new Error('Failed to post comment');
             }
 
             setComment("");
+            setErrorComment("");
             refetch();
-        } catch (err) {
-            console.error('Error posting comment:', err);
+        } catch { 
+            setErrorComment('Something went wrong.');
         } finally {
             setIsSubmitting(false);
         }
@@ -101,36 +114,37 @@ const PostDetail = () => {
                     {post.comments?.length ? ` (${post.comments.length})` : ''}
                 </h2>
 
-                <TextField
-                    fullWidth
-                    multiline
-                    rows={1}
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                    onKeyDown={(e) => {
-                        if (e.key === 'Enter' && !e.shiftKey) {
-                            e.preventDefault();
-                            handleSubmitComment();
+                <form onSubmit={handleSubmitComment}>
+                    <Textarea 
+                        rows={1}
+                        value={comment}
+                        onValueChange={setComment}
+                        placeholder="Write a comment..."
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter" && !e.shiftKey) {
+                                e.preventDefault();          // Stop new line
+                                handleSubmitComment(e);      // Trigger submit
+                            }
+                        }}
+                        classNames={{
+                            inputWrapper: "rounded-sm border border-gray-300 bg-white hover:bg-white hover:border-gray-300 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 data-[hover=true]:bg-white data-[hover=true]:border-gray-300"
+                        }}
+                        endContent={
+                            <Button 
+                                type="submit" 
+                                className="mt-auto min-w-0 p-0 bg-transparent"
+                            >
+                                <IoSendSharp size={17} className="text-gray-500 hover:text-blue-900"/>
+                            </Button>
                         }
-                    }}
-                    disabled={isSubmitting}
-                    sx={{
-                      mb: 3,
-                      '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'rgba(0, 0, 0, 0.23)', 
-                      },
-                    }}
-                    placeholder="Write a comment..."
-                    slotProps={{
-                        input: {
-                            endAdornment: (
-                                <InputAdornment position="end" sx={{ cursor: 'pointer' }} onClick={handleSubmitComment}>
-                                    <IoSendSharp />
-                                </InputAdornment>
-                            ),
-                        },
-                    }}
-                />
+                    />
+                    {errorComment && (
+                        <p className="mt-1 text-sm text-red-600">
+                            {errorComment}
+                        </p>
+                    )}
+                </form>
+
 
                 {post.comments && post.comments.length > 0 ? (
                     <div className="space-y-6">
