@@ -114,7 +114,7 @@ const PostDetail = () => {
                     {post.comments?.length ? ` (${post.comments.length})` : ''}
                 </h2>
 
-                <form onSubmit={handleSubmitComment}>
+                <form onSubmit={handleSubmitComment} className="mb-4">
                     <Textarea 
                         rows={1}
                         value={comment}
