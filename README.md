@@ -1,7 +1,7 @@
 <h3 align="center">Crafts of Expression (Main Client)</h3>
 
 <p align="center">
-    <b><a href="https://coe-api-jeh2.onrender.com">https://coe-api-jeh2.onrender.com</a></b>
+    <b><a href="https://coe-blog-sepia.vercel.app/">https://coe-blog-sepia.vercel.app/</a></b>
 </p>
 
 <p align="center">
