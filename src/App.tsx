@@ -20,7 +20,7 @@ const App = () => {
                         element: (
                             <Posts />
                         ),
-                        path: "/"
+                        path: ["/", "/search"]
                     },
                     {
                         element: (

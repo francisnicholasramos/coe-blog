@@ -6,9 +6,12 @@ const RouteSwitch: React.FC<RouteSwitchProps> = ({Header, pages, Footer}) => {
         <>
             {Header}
             <Routes>
-                {pages.map((page) => (
-                    <Route path={page.path} element={page.element} />
-                ))}
+                {pages.map((page, index) => {
+                    const paths = Array.isArray(page.path) ? page.path : [page.path];
+                    return paths.map((path) => (
+                        <Route key={`${path}-${index}`} path={path} element={page.element} />
+                    ));
+                })}
             </Routes>
             {Footer}
         </>

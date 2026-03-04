@@ -5,6 +5,6 @@ export type RouteSwitchProps = {
 }
 
 type Page = {
-    path: string;
+    path: string | string[];
     element: React.ReactNode;
 }
