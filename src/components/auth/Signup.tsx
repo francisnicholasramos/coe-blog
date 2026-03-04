@@ -47,6 +47,7 @@ const Signup = () => {
                     label="Username" 
                     type="text" 
                     onChange={(e) => setCredentials({...credentials, username: e.target.value})}
+                    autoFocus
                     required
                 />
 
