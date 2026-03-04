@@ -39,3 +39,9 @@ export interface LoginProps {
     username: string;
     password: string;
 }
+
+export interface ChangePasswordProps {
+    currentPassword: string;
+    newPassword: string;
+    confirmPassword: string;
+}

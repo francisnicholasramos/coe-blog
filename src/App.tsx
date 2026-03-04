@@ -2,6 +2,7 @@ import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import Login from './components/auth/Login'
 import Signup from './components/auth/Signup'
+import ChangePassword from './components/auth/ChangePassword'
 import Posts from './components/posts/Posts'
 import PostForm from './components/posts/components/PostForm'
 import DashBoard from './components/dashboard/DashBoard'
@@ -33,6 +34,14 @@ const App = () => {
                             <Signup />
                         ),
                         path: "/signup"
+                    },
+                    {
+                        element: (
+                            <ProtectedRoute>
+                                <ChangePassword />
+                            </ProtectedRoute>
+                        ), 
+                        path: "/change-password"
                     },
                     {
                         element: (
