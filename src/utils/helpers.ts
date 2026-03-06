@@ -4,16 +4,22 @@ import DOMPurify from 'dompurify';
 const calculateReadTime = (content: string) => {
     const words = content.trim().split(/\s+/).length;
     const minutes = Math.ceil(words / 200);
-    return `${minutes} min(s) read`;
+    return `${minutes} min read`;
 };
 
-const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-        month: 'short',  
-        day: 'numeric',  
-    });
-};
+export const formatDate = (date: Date, verbose=false) => {
+    const defaultFormat: Intl.DateTimeFormatOptions = {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+    }
+    if (verbose) {
+        defaultFormat.hour = 'numeric';
+        defaultFormat.minute = '2-digit';
+    }
+
+    return new Intl.DateTimeFormat('en-US', defaultFormat).format(date);
+}
 
 const formatText = (html: string, renderHtml: boolean = false): string => {
     const sanitized = DOMPurify.sanitize(html);
