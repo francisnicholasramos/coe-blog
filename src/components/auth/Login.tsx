@@ -1,5 +1,4 @@
 import { useState } from "react";
-import {apiFetch} from "../../utils/api";
 import type {LoginProps} from "../../types/index";
 import {Form, Input, Button} from "@heroui/react";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa6";
@@ -18,8 +17,10 @@ const Login = () => {
         setIsLoading(true);
         setError('');
         try {
-            const res = await apiFetch('/login', {
+            const res = await fetch(`${import.meta.env.VITE_API_URL}/login`, {
+                headers: {'Content-Type': 'application/json'},
                 method: 'POST',
+                credentials: 'include',
                 body: JSON.stringify(credentials)
             })
 
