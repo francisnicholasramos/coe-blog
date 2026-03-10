@@ -42,18 +42,20 @@ const PostDetail = () => {
                 </h1>
 
             {/* metadata */}
-            <div className="flex items-center space-x-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-sm font-medium text-gray-600">
-                    {post.user?.username?.charAt(0).toUpperCase() || username?.charAt(1).toUpperCase()}
-                </div>
+            <div className="flex flex-col-reverse items-start gap-2 space-x-3 mb-6 sm:flex-row sm:items-center">
                 <div className="flex items-center space-x-3">
-                    <div className="font-medium text-gray-900">
+                    <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-sm font-medium text-gray-600">
+                        {post.user?.username?.charAt(0).toUpperCase() || username?.charAt(1).toUpperCase()}
+                    </div>
+                    <div className="font-medium text-gray-700">
                         {post.user?.username || username?.substring(1)}
                     </div>
+                </div>
+                <div className="flex items-center space-x-3">
                     <time className="text-sm space-x-3 text-gray-500">
                         <span>{helpers.calculateReadTime(post.content)}</span>
                         <span>·</span>
-                        <time>{helpers.formatDate(post.createdAt)}</time>
+                        <time>{helpers.formatDate(new Date(post.createdAt))}</time>
                     </time>
                 </div>
             </div>
@@ -74,6 +76,7 @@ const PostDetail = () => {
 
             <CommentSection 
                 post={post}
+                refetch={refetch}
             />
         </article>
     );
