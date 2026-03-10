@@ -12,7 +12,7 @@ interface BurgerMenuProps {
 
 const BurgerMenu = ({ isOpen, onClose }: BurgerMenuProps) => {
     const navigate = useNavigate();
-    const { isAuthenticated, user } = useAuth();
+    const { isAuthenticated } = useAuth();
     const handleLogout = async () => {
         await fetch(`${import.meta.env.VITE_API_URL}/logout`, {
             method: "POST",
@@ -54,7 +54,7 @@ const BurgerMenu = ({ isOpen, onClose }: BurgerMenuProps) => {
                                 <FaRegPenToSquare />
                                 <span>Write</span>
                             </button>
-                            <span className="block text-sm text-gray-500">{user?.username}</span>
+                            <span className="block text-sm text-gray-500"></span>
                             <button onClick={() => { handleLogout(); onClose(); }} className="flex items-center gap-x-2 w-full text-left text-gray-700 hover:text-gray-900">
                                 <MdLogout />
                                 <span>Logout</span>

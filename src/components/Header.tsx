@@ -13,7 +13,7 @@ export function Header() {
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const { isAuthenticated, user } = useAuth();
+    const { isAuthenticated } = useAuth();
     const handleLogout = async () => {
         await apiFetch(`/logout`, {
             method: "POST",
@@ -56,7 +56,7 @@ export function Header() {
                                     <Link to="/dashboard">
                                         <span className="font-medium cursor-pointer text-gray-600">Dashboard</span>
                                     </Link>
-                                    <span className="text-sm font-medium text-gray-600">{user?.username}</span>
+                                    <span className="text-sm font-medium text-gray-600"></span>
                                     <button onClick={handleLogout} className="font-medium cursor-pointer text-gray-600 hover:text-gray-900">
                                         Logout
                                     </button>
