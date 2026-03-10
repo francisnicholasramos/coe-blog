@@ -43,7 +43,7 @@ const PostCard = ({ post, loading }: PostCardProps) => {
 
                 {/* metadata */}
                 <div className="flex items-center space-x-4 text-sm text-gray-500">
-                    <time>{helpers.formatDate(post.createdAt)}</time>
+                    <time>{helpers.formatDate(new Date(post.createdAt))}</time>
                     <span>·</span>
                     <span>{helpers.calculateReadTime(post.content)}</span>
 
