@@ -48,6 +48,7 @@ const CommentSection = ({post, refetch}: CommentSectionProps) => {
                         const isEditing = editingCommentId === comment.id;
                         const isOwner = user?.id === comment.user?.id;
 
+                        console.log('isOwner', user?.id)
                         return (
                             <div key={comment.id} className="flex space-x-3">
                                 <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-medium text-gray-600 shrink-0">
