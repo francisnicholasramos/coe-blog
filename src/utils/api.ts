@@ -29,13 +29,17 @@ export async function apiFetch(
     let res = await fetch(`${API_URL}${endpoint}`, config);
 
     if (res.status === 401) {
-        const refreshed = await refreshToken();
+        const data = await res.json();
+        
+        if (data.refreshable) {
+            const refreshed = await refreshToken();
 
-        if (refreshed) {
-            await new Promise(r => setTimeout(r, 100)); // wait 100ms for cookie to update
-            res = await fetch(`${API_URL}${endpoint}`, config);
-        } else {
-            window.location.href = '/login';
+            if (refreshed) {
+                await new Promise(r => setTimeout(r)); 
+                res = await fetch(`${API_URL}${endpoint}`, config);
+            } else {
+                window.location.href = '/login';
+            }
         }
     }
 
