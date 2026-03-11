@@ -2,6 +2,7 @@ import {Link} from "react-router-dom";
 import type { PostCardProps } from "../../../types";
 import {helpers} from '../../../utils/helpers';
 import {Skeleton} from "@heroui/react";
+import {Avatar} from "@heroui/react";
 
 const PostCard = ({ post, loading }: PostCardProps) => {
     if (loading) {
@@ -14,6 +15,7 @@ const PostCard = ({ post, loading }: PostCardProps) => {
             </div>
         );
     }
+
     return (
         <Link to={`/@${post.user?.username || 'user'}/${post.id}`}>
         <article className="flex flex-col sm:flex-row items-start justify-between py-6 border-gray-500 last:border-b-0">
@@ -21,9 +23,12 @@ const PostCard = ({ post, loading }: PostCardProps) => {
                 {/* author */}
                 {post.user && (
                     <div className="flex items-center space-x-2 mb-2">
-                        <div className="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-xs font-medium text-gray-600">
-                            {post.user.username.charAt(0).toUpperCase()}
-                        </div>
+                        <Avatar
+                            showFallback
+                            name={post.user.username.charAt(0).toUpperCase()}
+                            className="text-gray-600 text-sm"
+                            src={post.user.avatar}
+                        />
                         <span className="text-sm text-gray-900 font-medium">
                             {post.user.username}
                         </span>

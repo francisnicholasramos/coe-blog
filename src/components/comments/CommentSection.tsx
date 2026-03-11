@@ -12,6 +12,7 @@ import { FaEllipsisV } from "react-icons/fa";
 import EditComment from "./EditComment";
 import {useAuth} from "../../hooks/useAuth";
 import {apiFetch} from "../../utils/api";
+import {Avatar} from "@heroui/react";
 
 interface CommentSectionProps {
     post: Post;
@@ -48,17 +49,14 @@ const CommentSection = ({post, refetch}: CommentSectionProps) => {
                         const isEditing = editingCommentId === comment.id;
                         const isOwner = user?.id === comment.user?.id;
 
-
-                        console.log('loading', loading)
-                        console.log('isAuthenticated', isAuthenticated)
-                        console.log('commentId', comment.user?.id)
-                        console.log('userId', user?.id)
-                        console.log('isOwner', isOwner)
                         return (
                             <div key={comment.id} className="flex space-x-3">
-                                <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-medium text-gray-600 shrink-0">
-                                    {comment.user?.username?.charAt(0).toUpperCase() || 'A'}
-                                </div>
+                                <Avatar
+                                    showFallback
+                                    name={post.user.username.charAt(0).toUpperCase()}
+                                    className="text-gray-600 text-sm"
+                                    src={post.user.avatar}
+                                />
                                 <div className="flex-1">
                                     <div className="flex items-center justify-between mb-1">
                                         <div className="flex items-center space-x-2">

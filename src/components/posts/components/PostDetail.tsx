@@ -3,6 +3,7 @@ import { useFetchBlogById } from "../../../hooks/useFetchBlogs";
 import { helpers } from "../../../utils/helpers";
 import Comments from "../../comments/Comments";
 import CommentSection  from "../../comments/CommentSection";
+import {Avatar} from "@heroui/react";
 
 const PostDetail = () => {
     const { username, postId } = useParams<{ username: string; postId: string }>();
@@ -44,9 +45,12 @@ const PostDetail = () => {
             {/* metadata */}
             <div className="flex flex-col-reverse items-start gap-2 space-x-3 mb-6 sm:flex-row sm:items-center">
                 <div className="flex items-center space-x-3">
-                    <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center text-sm font-medium text-gray-600">
-                        {post.user?.username?.charAt(0).toUpperCase() || username?.charAt(1).toUpperCase()}
-                    </div>
+                    <Avatar
+                        showFallback
+                        name={post.user.username.charAt(0).toUpperCase()}
+                        className="text-gray-600 text-sm"
+                        src={post.user.avatar}
+                    />
                     <div className="font-medium text-gray-700">
                         {post.user?.username || username?.substring(1)}
                     </div>
