@@ -3,7 +3,7 @@ import {apiFetch} from "../utils/api";
 
 export function useAuth() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [user, setUser] = useState<{ id: string } | null>(null);
+    const [user, setUser] = useState<{ id: string, avatar: string } | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
