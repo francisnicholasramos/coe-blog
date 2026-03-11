@@ -21,7 +21,8 @@ export async function apiFetch(
         ...options,
         credentials: 'include',
         headers: {
-            'Content-Type': 'application/json',
+            // set Content-Type dynamically to avoid conflicts body that contains FormData
+            ...(!(options.body instanceof FormData) && { 'Content-Type': 'application/json' }),
             ...options.headers
         },
     };
