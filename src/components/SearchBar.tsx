@@ -24,9 +24,9 @@ const Search = () => {
                 endContent={
                     <Button 
                         type="submit" 
-                        className="min-w-0 bg-gray-200"
+                        className="min-w-0 pr-1 bg-transparent"
                     >
-                        <IoSearch className="text-gray-800" />
+                        <IoSearch size={20} className="text-gray-800" />
                     </Button>
                 }
             />
