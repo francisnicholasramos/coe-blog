@@ -7,6 +7,7 @@ import Posts from './components/posts/Posts'
 import PostForm from './components/posts/components/PostForm'
 import DashBoard from './components/dashboard/DashBoard'
 import PostDetail from './components/posts/components/PostDetail'
+import Profile from './components/dashboard/components/Profile'
 import PostAction from './components/dashboard/components/PostAction'
 import ProtectedRoute from './components/ProtectedRoute'
 import RouteSwitch from './routes/RouteSwitch'
@@ -68,6 +69,14 @@ const App = () => {
                             <DashBoard />
                         ),
                         path: ["/dashboard", "/dashboard/search"]
+                    },
+                    {
+                        element: (
+                            <ProtectedRoute>
+                                <Profile />
+                            </ProtectedRoute>
+                        ),
+                        path: "/profile"
                     },
                 ]}
                 Footer={<Footer />}
