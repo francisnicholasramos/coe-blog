@@ -3,8 +3,7 @@ import PostList from './components/PostList';
 import { useFetchBlogs } from '../../hooks/useFetchBlogs';
 import { useSearch } from '../../hooks/useSearch';
 const Posts = () => {
-    const [searchParams] = useSearchParams();
-    const searchQuery = searchParams.get('q') || '';
+    const [searchParams] = useSearchParams(); const searchQuery = searchParams.get('q') || '';
     
     const { blogs, loading: loadingBlogs, error: errorBlogs } = useFetchBlogs();
     const { posts: searchResults, loading: loadingSearch, error: errorSearch } = useSearch(searchQuery);
@@ -28,7 +27,7 @@ const Posts = () => {
                         </>
                     ) : (
                         <>
-                            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">
                                 Latest Stories
                             </h1>
                             <p className="text-lg text-gray-600">
@@ -49,7 +48,7 @@ const Posts = () => {
                         <p className="text-gray-600">{error}</p>
                     </div>
                 )}
-                <PostList posts={posts} loading={loading} />
+                {!error && <PostList posts={posts} loading={loading} />}
             </div>
         </div>
     );
