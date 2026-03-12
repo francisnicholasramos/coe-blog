@@ -53,7 +53,7 @@ const Comments = (
 
     return (
         <section>
-                <h2 className="text-gray-800 text-2xl font-semibold mb-6">
+                <h2 className="text-gray-800 text-2xl font-semibold mb-2">
                     Comments 
                     {post.comments?.length ? ` (${post.comments.length})` : ''}
                 </h2>

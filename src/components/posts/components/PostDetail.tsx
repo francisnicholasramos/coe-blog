@@ -35,7 +35,7 @@ const PostDetail = () => {
         );
     }
     return (
-        <article className="w-full max-w-4xl mx-auto py-12 px-3">
+        <article className="w-full max-w-4xl mx-auto py-5 px-3">
             {/* title */}
             <header>
                 <h1 className="text-4xl mb-7 font-bold">

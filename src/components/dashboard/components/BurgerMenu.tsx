@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router';
 import { useAuth } from '../../../hooks/useAuth';
 import { Button } from '@heroui/react';
-import { FaRegPenToSquare } from "react-icons/fa6"; 
+import { FaRegPenToSquare, FaRegUser } from "react-icons/fa6"; 
 import { IoHome } from "react-icons/io5";
 import { MdLogout } from "react-icons/md";
 
@@ -49,6 +49,10 @@ const BurgerMenu = ({ isOpen, onClose }: BurgerMenuProps) => {
                             <button onClick={() => handleLinkClick('/dashboard')} className="flex items-center gap-x-2 w-full text-left text-gray-700 hover:text-gray-900">
                                 <IoHome />
                                 <span>Dashboard</span>
+                            </button>
+                            <button onClick={() => handleLinkClick('/profile')} className="flex items-center gap-x-2 w-full text-left text-gray-700 hover:text-gray-900">
+                                <FaRegUser />
+                                <span>Profile</span>
                             </button>
                             <button onClick={() => handleLinkClick('/write')} className="flex items-center gap-x-2 w-full text-left text-gray-700 hover:text-gray-900">
                                 <FaRegPenToSquare />

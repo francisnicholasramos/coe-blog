@@ -5,9 +5,17 @@ import {Button} from "@heroui/react";
 import BurgerMenu from './dashboard/components/BurgerMenu'
 import Dialog from "./Dialog";
 import SearchBar from "./SearchBar";
-import { FaRegPenToSquare } from "react-icons/fa6";
+import { FaRegPenToSquare, FaRegUser } from "react-icons/fa6";
 import { ImSearch } from "react-icons/im";
 import {apiFetch} from "../utils/api";
+import { MdLogout } from "react-icons/md";
+import {
+    Avatar,
+    Dropdown,  
+    DropdownTrigger,  
+    DropdownMenu,  
+    DropdownItem
+} from "@heroui/react";
 
 export function Header() {
     const navigate = useNavigate();
@@ -56,10 +64,26 @@ export function Header() {
                                     <Link to="/dashboard">
                                         <span className="font-medium cursor-pointer text-gray-600">Dashboard</span>
                                     </Link>
-                                    <span className="text-sm font-medium text-gray-600"></span>
-                                    <button onClick={handleLogout} className="font-medium cursor-pointer text-gray-600 hover:text-gray-900">
-                                        Logout
-                                    </button>
+                                    <Dropdown>
+                                        <DropdownTrigger>
+                                            <Avatar
+                                                showFallback
+                                                name="N"
+                                                src=""
+                                                className="text-gray-700 w-8 h-8 cursor-pointer"
+                                            />
+                                        </DropdownTrigger>
+                                        <DropdownMenu aria-label="User menu">
+                                            <DropdownItem key="profile" onPress={() => navigate('/profile')}>
+                                                <span className="flex items-center gap-2 text-gray-600">
+                                                    <FaRegUser/> Profile
+                                                </span>
+                                            </DropdownItem>
+                                            <DropdownItem key="logout" onPress={handleLogout}>
+                                                <span className="flex items-center gap-2 text-red-500"><MdLogout /> Logout</span>
+                                            </DropdownItem>
+                                        </DropdownMenu>
+                                    </Dropdown>
                                 </>
                             ) : (
                                 <>
