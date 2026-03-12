@@ -6,10 +6,6 @@ export interface User {
     email: string;
 }
 
-export interface UserProps {
-    user: User;
-}
-
 export interface Post {
   id: string;           
   title: string;        
@@ -29,7 +25,7 @@ export interface Comment {
     createdAt: string;    
     postId: string;       
     type: CommentType;    
-    user?: User;          
+    user: User;          
 }
 
 export interface PostCardProps {
