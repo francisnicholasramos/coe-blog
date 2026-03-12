@@ -15,7 +15,7 @@ const Posts = () => {
         <div>
             {/* mini header */}
             <div className="bg-white border-b border-gray-100">
-                <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-9">
+                <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-9">
                     {isSearching ? (
                         <>
                             <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
@@ -37,7 +37,7 @@ const Posts = () => {
                     )}
                 </div>
             </div>
-            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* error */}
                 {error && (
                     <div className="text-center py-12">
