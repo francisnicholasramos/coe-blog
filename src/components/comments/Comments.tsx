@@ -31,7 +31,7 @@ const Comments = (
                 body: JSON.stringify({ content: comment.trim() })
             });
 
-            if (response.status === 403) {
+            if (response.status === 401) {
                 setErrorComment("You must be logged in to comment.")
                 setIsSubmitting(false);
                 return;
