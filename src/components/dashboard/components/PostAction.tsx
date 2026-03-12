@@ -4,6 +4,7 @@ import { formatDate } from "../utils/formatDate";
 import { Switch } from "@heroui/react";
 import TinyMCE from "../../editor/TinyMCE";
 import {apiFetch} from "../../../utils/api";
+import {Avatar} from "@heroui/react";
 
 interface PostData {
     id: string;
@@ -20,6 +21,7 @@ interface PostData {
         createdAt: string;
         user: {
             username: string;
+            avatar: string;
         }
     }>;
 }
@@ -336,9 +338,12 @@ const PostAction = () => {
                                     className="bg-zinc-100 dark:bg-zinc-800 rounded-lg p-4"
                                 >
                                     <div className="flex gap-x-2">
-                                    <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-xs font-medium text-gray-600 shrink-0">
-                                        {comment.user?.username?.charAt(0).toUpperCase() || 'A'}
-                                    </div>
+                                    <Avatar
+                                        showFallback
+                                        name={comment.user?.username?.charAt(0).toUpperCase() || 'A'}
+                                        src={comment.user?.avatar}
+                                        className="w-8 h-8"
+                                    />
                                     <div className="flex items-center space-x-2 mb-1">
                                         <span className="font-medium text-gray-900">
                                             {comment.user?.username || 'Anonymous'}

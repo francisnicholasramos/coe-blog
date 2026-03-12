@@ -53,9 +53,9 @@ const CommentSection = ({post, refetch}: CommentSectionProps) => {
                             <div key={comment.id} className="flex space-x-3">
                                 <Avatar
                                     showFallback
-                                    name={post.user.username.charAt(0).toUpperCase()}
+                                    name={comment.user?.username.charAt(0).toUpperCase()}
                                     className="text-gray-600 text-sm"
-                                    src={post.user.avatar}
+                                    src={comment.user?.avatar}
                                 />
                                 <div className="flex-1">
                                     <div className="flex items-center justify-between mb-1">
