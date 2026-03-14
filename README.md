@@ -36,7 +36,3 @@
 * React Router
 * TinyMCE (Rich Text Editor)
 * React Icons
-
-### Roadmap
-- [ ] Likes/bookmark posts
-- [ ] User profile
