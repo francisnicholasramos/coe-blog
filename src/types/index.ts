@@ -15,6 +15,8 @@ export interface Post {
   userId: string;       
   user: User;          
   comments?: Comment[]; 
+  likesCount?: number;
+  isLiked?: boolean;
 }
 
 export interface Comment {

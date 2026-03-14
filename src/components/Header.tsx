@@ -21,7 +21,9 @@ export function Header() {
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const { isAuthenticated } = useAuth();
+
+    const { isAuthenticated, user } = useAuth();
+
     const handleLogout = async () => {
         await apiFetch(`/logout`, {
             method: "POST",
@@ -29,6 +31,7 @@ export function Header() {
         })
         window.location.href = "/login"
     };
+
     return (
         <>
             <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
@@ -68,8 +71,8 @@ export function Header() {
                                         <DropdownTrigger>
                                             <Avatar
                                                 showFallback
-                                                name="N"
-                                                src=""
+                                                name={user?.username}
+                                                src={user?.avatar}
                                                 className="text-gray-700 w-8 h-8 cursor-pointer"
                                             />
                                         </DropdownTrigger>

@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Button } from "@heroui/react";
-import {apiFetch } from "../../../utils/api";
+import {apiFetch } from "../../utils/api";
 
 const UploadProfile = ({onClose}: {onClose?: () => void}) => {
     const [preview, setPreview] = useState<string | null>(null);

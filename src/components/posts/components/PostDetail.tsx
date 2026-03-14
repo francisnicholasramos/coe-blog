@@ -4,6 +4,7 @@ import { helpers } from "../../../utils/helpers";
 import Comments from "../../comments/Comments";
 import CommentSection  from "../../comments/CommentSection";
 import {Avatar} from "@heroui/react";
+import {LikeButton} from "../../likes/LikeButton";
 
 const PostDetail = () => {
     const { username, postId } = useParams<{ username: string; postId: string }>();
@@ -61,6 +62,7 @@ const PostDetail = () => {
                         <span>·</span>
                         <time>{helpers.formatDate(new Date(post.createdAt))}</time>
                     </time>
+                    <LikeButton postId={postId || ""} />
                 </div>
             </div>
             </header>

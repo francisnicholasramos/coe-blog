@@ -19,7 +19,7 @@ const ChangePassword = () => {
         setIsLoading(true);
         setError('');
         try {
-            const res = await apiFetch('/change-password', {
+            const res = await apiFetch('/user/change-password', {
                 method: 'PUT',
                 body: JSON.stringify(credentials)
             })
@@ -38,8 +38,7 @@ const ChangePassword = () => {
     }
 
     return (
-        <div className="flex flex-col items-center mt-2 mx-auto p-3 gap-y-3 justify-center w-full min-w-xs max-w-sm">
-            <h1 className="text-2xl mx-auto">Change Password</h1>
+        <div className="flex flex-col items-center mt-2 py-3 gap-y-3 justify-center w-full">
             <Form onSubmit={handleSubmit} className="flex flex-col space-y-3 w-full rounded-md">
                 <Input 
                     label="Current Password" 
