@@ -23,6 +23,7 @@
 
 ### Key Features
 * **Search**: Find posts by searching related to its title or contents.
+* **Like**: Users can like blog posts.
 * **Comments**: Engage with readers through comments on posts.
 * **Dashboard**: Personal dashboard to manage your posts (create, edit, delete).
 * **Rich Text Editor**: Supports multiple text formats including image upload using TinyMCE.
