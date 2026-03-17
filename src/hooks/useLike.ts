@@ -8,24 +8,11 @@ export const useLike = (postId: string) => {
 
     const fetchLikesCount = useCallback(async () => {
         try {
-            const res = await apiFetch(`/posts/${postId}/likes/count`);
+            const res = await apiFetch(`/likes/${postId}`);
             if (res.ok) {
                 const data = await res.json();
                 setLikesCount(data.likesCount);
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    }, [postId]);
-
-    const fetchLikeStatus = useCallback(async () => {
-        try {
-            const res = await apiFetch(`/posts/${postId}/like/status`);
-            if (res.ok) {
-                const data = await res.json();
                 setIsLiked(data.liked);
-            } else if (res.status === 401) {
-                setIsLiked(false);
             }
         } catch (err) {
             console.error(err);
@@ -37,12 +24,11 @@ export const useLike = (postId: string) => {
 
         setIsLoading(true);
         try {
-            const res = await apiFetch(`/posts/${postId}/like`, {
+            const res = await apiFetch(`/likes/${postId}`, {
                 method: "POST",
             });
             if (res.ok) {
-                setLikesCount((count) => (isLiked ? count - 1 : count + 1));
-                setIsLiked((prev) => !prev);
+                await fetchLikesCount();
             } else if (res.status === 401) {
                 window.location.href = "/login";
             }
@@ -51,12 +37,11 @@ export const useLike = (postId: string) => {
         } finally {
             setIsLoading(false);
         }
-    }, [postId, isLiked, isLoading]);
+    }, [postId, isLoading, fetchLikesCount]);
 
     useEffect(() => {
         fetchLikesCount();
-        fetchLikeStatus();
-    }, [fetchLikesCount, fetchLikeStatus]);
+    }, [fetchLikesCount]);
 
     return {
         likesCount,
