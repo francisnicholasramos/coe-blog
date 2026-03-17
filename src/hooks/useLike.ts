@@ -28,7 +28,7 @@ export const useLike = (postId: string) => {
                 method: "POST",
             });
             if (res.ok) {
-                await fetchLikesCount();
+                fetchLikesCount();
             } else if (res.status === 401) {
                 window.location.href = "/login";
             }
