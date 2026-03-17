@@ -19,7 +19,7 @@ const PostCard = ({ post, loading }: PostCardProps) => {
     }
 
     return (
-        <Link to={`/@${post.user?.username || 'user'}/${post.id}`}>
+        <Link to={`/@${post.user?.username}/${post.id}`}>
         <article className="flex flex-col sm:flex-row items-start justify-between py-6 border-gray-500 last:border-b-0">
             <div className="flex-1 pr-0 sm:pr-8">
                 {/* author */}

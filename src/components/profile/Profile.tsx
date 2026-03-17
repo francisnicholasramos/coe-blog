@@ -4,6 +4,7 @@ import Dialog from "../Dialog";
 import UploadProfile from "./UploadProfile";
 import {useAuth} from "../../hooks/useAuth";
 import ChangePassword from "../auth/ChangePassword";
+import LikedPosts from "../likes/LikedPosts";
 
 const Profile = () => {
     const {user} = useAuth();
@@ -71,11 +72,8 @@ const Profile = () => {
                             )}
                         </div>
                     </Tab>
-                    <Tab key="music" title="Posts" className="w-full text-center text-gray-400">
-                        Feature will be available soon!
-                    </Tab>
-                    <Tab key="videos" title="Liked Posts" className="text-center text-gray-400">
-                        Feature will be available soon!
+                    <Tab key="videos" title="Liked Posts">
+                        <LikedPosts />
                     </Tab>
                 </Tabs>
 
