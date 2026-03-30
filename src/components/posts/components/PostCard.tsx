@@ -3,10 +3,8 @@ import type { PostCardProps } from "../../../types";
 import {helpers} from '../../../utils/helpers';
 import {Skeleton} from "@heroui/react";
 import {Avatar} from "@heroui/react";
-import { useLike } from "../../../hooks/useLike";
 
 const PostCard = ({ post, loading }: PostCardProps) => {
-    const { likesCount } = useLike(post.id);
     if (loading) {
         return (
             <div className="py-6">
@@ -54,11 +52,11 @@ const PostCard = ({ post, loading }: PostCardProps) => {
                     <span>·</span>
                     <span>{helpers.calculateReadTime(post.content)}</span>
 
-                    {(likesCount > 0 || (post.comments && post.comments.length > 0)) && (
+                    {(post.likes.length > 0 || (post.comments && post.comments.length > 0)) && (
                         <span>·</span>
                     )}
 
-                    {likesCount > 0 && (
+                    {post.likes.length > 0 && (
                     <div className="flex items-center gap-1">
                         <svg
                             className="w-4 h-4"
@@ -73,7 +71,7 @@ const PostCard = ({ post, loading }: PostCardProps) => {
                                 d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
                             />
                         </svg>
-                        {likesCount > 0 && <span>{likesCount}</span>}
+                        {post.likes.length > 0 && <span>{post.likes.length}</span>}
                     </div>
                     )}
 

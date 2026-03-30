@@ -13,6 +13,7 @@ export interface Post {
   published: boolean;   
   createdAt: string;    
   userId: string;       
+  likes: string;
   user: User;          
   comments?: Comment[]; 
   likesCount?: number;
