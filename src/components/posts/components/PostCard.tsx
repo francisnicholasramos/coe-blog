@@ -17,9 +17,9 @@ const PostCard = ({ post, loading }: PostCardProps) => {
     }
 
     return (
-        <Link to={`/@${post.user?.username}/${post.id}`}>
-        <article className="flex flex-col sm:flex-row items-start justify-between py-6 border-gray-500 last:border-b-0">
-            <div className="flex-1 pr-0 sm:pr-8">
+        <Link to={`/@${post.user?.username}/${post.id}`} className="w-full">
+        <article className="flex flex-col sm:flex-row items-start justify-between py-6 border-gray-500 last:border-b-0 min-w-0">
+            <div className="flex-1 min-w-0 pr-0 sm:pr-8">
                 {/* author */}
                 {post.user && (
                     <div className="flex items-center space-x-2 mb-2">
@@ -36,12 +36,12 @@ const PostCard = ({ post, loading }: PostCardProps) => {
                 )}
 
                 {/* title */}
-                <h2 className="text-xl font-bold text-gray-900 mb-2 leading-tight hover:text-gray-600 cursor-pointer transition-colors">
+                <h2 className="text-xl font-bold text-gray-900 mb-2 leading-tight hover:text-gray-600 cursor-pointer transition-colors break-words break-all whitespace-normal">
                     {post.title}
                 </h2>
 
                 {/* Preview Content - Shows first 150 characters with ... if longer */}
-                <p className="text-gray-600 text-sm mb-3 line-clamp-2 leading-relaxed">
+                <p className="text-gray-600 text-sm mb-3 line-clamp-2 leading-relaxed break-words break-all whitespace-normal">
                     {helpers.formatText(post.content).substring(0, 150)}
                     {post.content.length > 150 ? '...' : ''}
                 </p>

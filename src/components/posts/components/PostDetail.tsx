@@ -39,7 +39,7 @@ const PostDetail = () => {
         <article className="w-full max-w-4xl mx-auto py-5 px-3">
             {/* title */}
             <header>
-                <h1 className="text-4xl mb-7 font-bold">
+                <h1 className="text-4xl mb-7 font-bold break-words break-all">
                     {post.title} 
                 </h1>
 
@@ -69,7 +69,7 @@ const PostDetail = () => {
 
             {/* content */}
             <section 
-                className="whitespace-pre-wrap mb-6 text-gray-700"
+                className="whitespace-pre-wrap mb-6 text-gray-700 break-words"
                 dangerouslySetInnerHTML={{ __html: helpers.formatText(post.content, true) }}
             />
 

@@ -259,7 +259,7 @@ const PostAction = () => {
                             placeholder="Post title"
                         />
                     ) : (
-                        <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100">
+                        <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100 break-words">
                             {post.title}
                         </h1>
                     )}
@@ -288,7 +288,7 @@ const PostAction = () => {
                     </div>
                 ) : (
                     <div 
-                        className="prose dark:prose-invert max-w-none mb-8 text-zinc-700 dark:text-zinc-300"
+                        className="prose dark:prose-invert max-w-none break-words mb-8 text-zinc-700 dark:text-zinc-300"
                         dangerouslySetInnerHTML={{ __html: post.content }}
                     />
                 )}
